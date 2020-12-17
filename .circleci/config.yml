@@ -19,7 +19,7 @@ jobs:
       #   - image: circleci/node:10.16.3
       # steps:
       - node/install:
-          node-version: 12
+          node-version: "12"
       - run:
           name: Install Azure functions tools
           command: npm i -g azure-functions-core-tools@3 --unsafe-perm true
