@@ -1,11 +1,4 @@
 jobs:
-  # login-to-azure:
-  #   executor: azure-cli/azure-docker
-  #   steps:
-  #     - azure-cli/login-with-service-principal
-  #     - run:
-  #         command: az resource list
-  #         name: List resources of tenant stored as `AZURE_SP_TENANT` env var
   deploy:
     working_directory: ~/repo
     executor: node/default
@@ -13,13 +6,6 @@ jobs:
       - checkout
       - azure-cli/install
       - azure-cli/login-with-service-principal
-      - run:
-          command: az resource list
-          name: List resources of tenant stored as `AZURE_SP_TENANT` env var
-      # docker:
-      #   - image: circleci/node:10.16.3
-      # steps:
-
       - run:
           name: Install Azure functions tools
           command: sudo npm i -g azure-functions-core-tools@3 --unsafe-perm true
