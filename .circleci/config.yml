@@ -1,6 +1,8 @@
 jobs:
-  login-to-azure:
-    executor: azure-cli/azure-docker
+  build:
+    docker:
+      - image: circleci/node:12
+      - image: azure-cli/azure-docker
     steps:
       - azure-cli/login-with-service-principal
       - run:
@@ -8,7 +10,7 @@ jobs:
           name: List resources of tenant stored as `AZURE_SP_TENANT` env var
       - run:
           name: Install Azure functions tools
-          command: npm i -g azure-functions-core-tools@3 --unsafe-perm true
+          command: sudo npm i -g azure-functions-core-tools@3 --unsafe-perm true
       - run:
           name: Deploy to Azure function App
           command: func azure functionapp publish $FUNCTION_APP_NAME
@@ -19,4 +21,4 @@ version: 2.1
 workflows:
   login-workflow:
     jobs:
-      - login-to-azure
+      - build
