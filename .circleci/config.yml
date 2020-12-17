@@ -6,15 +6,9 @@ jobs:
       - run:
           command: az resource list
           name: List resources of tenant stored as `AZURE_SP_TENANT` env var
-  deploy:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:10.16.3
-    steps:
-      - checkout
       - run:
           name: Install Azure functions tools
-          command: sudo npm i -g azure-functions-core-tools@3 --unsafe-perm true
+          command: npm i -g azure-functions-core-tools@3 --unsafe-perm true
       - run:
           name: Deploy to Azure function App
           command: func azure functionapp publish $FUNCTION_APP_NAME
@@ -26,6 +20,3 @@ workflows:
   login-workflow:
     jobs:
       - login-to-azure
-      - deploy:
-          requires:
-            - login-to-azure
